@@ -1,0 +1,206 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Operação Código Fantasma — Missão de Robótica</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24..48,300..700,0..1,0&display=swap" rel="stylesheet"><style>
+:root{color-scheme:dark;--bg:#080d18;--panel:#111b2b;--line:#29384b;--txt:#f0f5ff;--muted:#9caec3;--lime:#a7f36b;--cyan:#6cd6f8}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#173047 0%,transparent 48%),var(--bg);color:var(--txt);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}.shell{max-width:1120px;margin:auto;padding:28px 30px 34px;min-height:100vh;display:flex;flex-direction:column}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;border-bottom:1px solid var(--line);padding-bottom:20px}.brand{font-size:12px;font-weight:800;letter-spacing:.2em;color:var(--lime)}.status{font-size:12px;color:var(--muted);letter-spacing:.08em}.progress{display:flex;gap:8px;margin:22px 0 10px}.progress span{height:4px;flex:1;background:#263448;border-radius:8px}.progress span.done{background:var(--lime)}.progress span.active{background:var(--cyan)}main{flex:1;display:flex;align-items:center;padding:25px 0}.slide{width:100%;animation:enter .28s ease}@keyframes enter{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}h1{font-size:clamp(38px,6vw,78px);letter-spacing:-.055em;line-height:1.02;margin:0 0 26px;max-width:950px}h2{font-size:clamp(32px,5vw,58px);letter-spacing:-.045em;line-height:1.08;margin:0 0 22px}.lead{font-size:clamp(18px,2.3vw,25px);line-height:1.55;max-width:850px;color:#d2ddec}.story{font-size:18px;line-height:1.75;max-width:790px;color:#c5d2e2}.story strong{color:white}.panel{background:rgba(17,27,43,.85);border:1px solid var(--line);padding:26px;border-radius:14px;margin-top:26px;max-width:900px}.panel p{font-size:19px;line-height:1.55;margin:0}.hints{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:24px}.hint{min-height:180px;background:#101a2a;border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:18px}.hint .num{color:var(--cyan);font-weight:800;font-size:12px;letter-spacing:.12em}.hint p{margin:0;line-height:1.55;font-size:16px;color:#e0e8f4}.hint.locked p{color:var(--muted)}button{font:inherit;cursor:pointer;border:0;border-radius:8px;padding:14px 20px;font-weight:750}button:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}.primary{background:var(--lime);color:#101a10}.secondary{background:#202d3d;color:#e9f3ff;border:1px solid #34475b}.ghost{background:transparent;color:#b3c4d7;border:1px solid #334357}.hint button{font-size:13px;padding:10px 14px}.bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:20px}.actions{display:flex;gap:10px;flex-wrap:wrap}.footnote{font-size:12px;color:#8092a8}.code{font-family:ui-monospace,Consolas,monospace;background:#07111e;padding:16px 18px;border:1px solid #27384a;border-radius:10px;color:#c1e5ff;font-size:16px;white-space:pre-wrap;margin-top:16px;max-width:680px}.endmark{font-size:72px;margin-bottom:20px}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}@media(max-width:740px){.shell{padding:18px}.hints{grid-template-columns:1fr}.hint{min-height:unset}.bottom{align-items:stretch;flex-direction:column}.actions button{flex:1}.top{align-items:flex-start}.lead{font-size:19px}.panel{padding:20px}}
+ .choice{margin-top:24px}.choice>p{font-size:19px;font-weight:650}.color-options{display:flex;flex-wrap:wrap;gap:10px}.color-button{background:#172537;border:1px solid #40536b;color:#eaf2ff}.color-button.chosen{background:#d9fcae;color:#102014;border-color:#d9fcae}.verify-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}.danger{background:#5b2530;color:#fff;border:1px solid #a14c5a}button:disabled{opacity:.4;cursor:not-allowed}@media(max-width:740px){.verify-actions button{width:100%}} 
+/* Atmosfera e movimentos */
+body{background:#070b15;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:-35%;z-index:-2;pointer-events:none;background:radial-gradient(ellipse at 20% 25%,rgba(34,91,151,.40),transparent 42%),radial-gradient(ellipse at 78% 72%,rgba(85,39,130,.32),transparent 45%),radial-gradient(ellipse at 45% 65%,rgba(10,117,111,.20),transparent 50%);animation:aurora 19s ease-in-out infinite alternate}
+body::after{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;background:linear-gradient(115deg,transparent 25%,rgba(255,255,255,.018) 45%,transparent 70%);background-size:250% 100%;animation:shimmer 13s linear infinite}
+@keyframes aurora{0%{transform:translate(-4%,-2%) rotate(-9deg) scale(1)}50%{transform:translate(4%,3%) rotate(7deg) scale(1.08)}100%{transform:translate(-2%,5%) rotate(-5deg) scale(1.16)}}
+@keyframes shimmer{to{background-position:-250% 0}}
+.slide{animation:slideIn .48s cubic-bezier(.2,.8,.2,1) both}
+@keyframes slideIn{from{opacity:0;filter:blur(7px);transform:translateY(26px) scale(.985)}to{opacity:1;filter:blur(0);transform:translateY(0) scale(1)}}
+button{transition:background .2s,border-color .2s,transform .2s,box-shadow .2s}
+button:not(:disabled):hover{transform:translateY(-2px);filter:brightness(1.12)}button:not(:disabled):active{transform:scale(.97)}
+.hint{transition:background .3s,border-color .3s,transform .3s}.hint:not(.locked){animation:hintAppear .38s ease both;border-color:#345b6a;background:#122637}
+@keyframes hintAppear{from{opacity:.4;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.color-button{display:inline-flex;align-items:center;gap:9px}.color-button .dot{width:12px;height:12px;border-radius:50%;display:inline-block;border:1px solid #ffffff55}
+.color-button.chosen{box-shadow:0 0 0 2px #c4f68e44}
+.critical-screen{position:relative;min-height:58vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;isolation:isolate}
+.critical-screen::before{content:"";position:absolute;inset:-5vh -10vw;z-index:-1;pointer-events:none;opacity:.85;animation:criticalPulse 2.5s ease-in-out infinite}
+.critical-screen.success::before{background:radial-gradient(ellipse,rgba(41,210,137,.24),transparent 67%)}
+.critical-screen.failure::before{background:radial-gradient(ellipse,rgba(239,52,67,.32),transparent 68%);animation-duration:1s}
+@keyframes criticalPulse{50%{opacity:.35;transform:scale(1.1)}}
+.critical-icon{font-size:clamp(88px,13vw,154px);line-height:1;margin-bottom:28px;animation:iconIn .65s cubic-bezier(.18,.8,.22,1.4) both}
+@keyframes iconIn{from{opacity:0;transform:scale(.5) rotate(-12deg)}to{opacity:1;transform:scale(1) rotate(0)}}
+.critical-screen.success .critical-icon{color:#55f4b0;filter:drop-shadow(0 0 32px #34eaa355)}
+.critical-screen.failure .critical-icon{color:#ff5667;filter:drop-shadow(0 0 34px #ff3c4f77)}
+.critical-screen h1,.critical-screen h2{max-width:900px;margin-bottom:18px}
+.critical-screen.failure h1,.critical-screen.failure h2{color:#ff8792}
+.critical-screen .lead{margin:0 auto 30px;max-width:680px}
+.critical-screen .critical-action{margin-top:20px;min-width:230px}
+.critical-screen.failure{animation:slideIn .45s ease both,alarmShake .42s ease .25s 1}
+@keyframes alarmShake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+.stage-prompt{display:flex;align-items:center;gap:14px;margin-bottom:18px;color:#9ec5da;font-weight:700;letter-spacing:.08em;font-size:13px}
+.stage-prompt .material-symbols-outlined{font-size:24px}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Ambiente cinematografico: aurora, feixes de luz e malha em movimento */
+body{position:relative;background:#050913}
+body::before{inset:-60%;background:radial-gradient(ellipse at 16% 26%,rgba(31,125,203,.42),transparent 34%),radial-gradient(ellipse at 84% 20%,rgba(112,47,177,.32),transparent 36%),radial-gradient(ellipse at 66% 81%,rgba(15,171,153,.28),transparent 38%),radial-gradient(ellipse at 32% 75%,rgba(35,80,188,.28),transparent 35%);filter:blur(18px);animation:auroraDynamic 11s ease-in-out infinite alternate}
+body::after{background:repeating-linear-gradient(0deg,transparent 0,transparent 48px,rgba(116,202,244,.035) 49px,transparent 50px),repeating-linear-gradient(90deg,transparent 0,transparent 48px,rgba(116,202,244,.035) 49px,transparent 50px),linear-gradient(115deg,transparent 25%,rgba(116,202,244,.07) 50%,transparent 75%);background-size:100% 100%,100% 100%,230% 100%;animation:gridDrift 16s linear infinite,shimmer 8s linear infinite;mask-image:linear-gradient(to bottom,transparent 3%,black 45%,black 95%)}
+@keyframes auroraDynamic{0%{transform:translate(-8%,-4%) rotate(-13deg) scale(1)}35%{transform:translate(8%,6%) rotate(7deg) scale(1.08)}70%{transform:translate(-4%,9%) rotate(-6deg) scale(1.16)}100%{transform:translate(8%,-7%) rotate(12deg) scale(1.04)}}
+@keyframes gridDrift{to{background-position:0 100px,100px 0,-230% 0}}
+.shell{position:relative;z-index:1}
+.intro-story{max-width:900px;font-size:clamp(17px,2vw,21px);line-height:1.68;color:#d7e5f4}
+.intro-story p{margin:0 0 14px}
+.rules{margin-top:24px;max-width:940px;padding:20px 25px;background:rgba(7,17,32,.72);border:1px solid rgba(106,167,210,.25);border-radius:12px;backdrop-filter:blur(12px)}
+.rules h2{font-size:25px;margin:0 0 14px;letter-spacing:-.02em}
+.rules-list{margin:0;padding-left:23px;display:grid;gap:10px;color:#e1ebf8;line-height:1.48;font-size:16px}
+.rules-list li{padding-left:5px}
+.panel,.hint{backdrop-filter:blur(12px);background:rgba(12,25,42,.80)}
+@media(max-width:740px){.rules{padding:18px}.rules-list{font-size:15px}.intro-story{font-size:17px}}
+
+/* ALERTA MÁXIMO — atmosfera permanente de emergência */
+:root{--bg:#150608;--panel:#260d12;--line:#77352c;--lime:#ffd85e;--cyan:#ffb84b;--muted:#e2b2a9}
+body{background:#150608;color:#fff3e9}
+body::before{inset:-55%;background:
+ radial-gradient(ellipse at 18% 22%,rgba(255,41,39,.72),transparent 35%),
+ radial-gradient(ellipse at 82% 68%,rgba(255,178,0,.56),transparent 34%),
+ radial-gradient(ellipse at 57% 42%,rgba(163,15,23,.64),transparent 43%),
+ radial-gradient(ellipse at 28% 80%,rgba(255,89,0,.48),transparent 39%);
+ filter:blur(22px);animation:emergencyFlow 7s ease-in-out infinite alternate,emergencyFlash 2.2s ease-in-out infinite}
+body::after{background:
+ repeating-linear-gradient(0deg,transparent 0,transparent 47px,rgba(255,193,72,.075) 48px,transparent 49px),
+ repeating-linear-gradient(90deg,transparent 0,transparent 47px,rgba(255,193,72,.06) 48px,transparent 49px),
+ linear-gradient(110deg,transparent 25%,rgba(255,218,73,.18) 48%,transparent 65%);
+ background-size:100% 100%,100% 100%,230% 100%;
+ animation:gridDrift 11s linear infinite,shimmer 4s linear infinite;
+ mask-image:none;opacity:.7}
+@keyframes emergencyFlow{0%{transform:translate(-7%,-4%) rotate(-12deg) scale(1)}50%{transform:translate(6%,6%) rotate(8deg) scale(1.12)}100%{transform:translate(-4%,8%) rotate(-6deg) scale(1.2)}}
+@keyframes emergencyFlash{0%,100%{opacity:.78}45%{opacity:1}55%{opacity:.52}63%{opacity:1}72%{opacity:.7}}
+.shell{position:relative;z-index:1}
+.top,.bottom{border-color:rgba(255,174,87,.32)}
+.brand{color:#ffd66d}
+.status,.footnote{color:#ffccaa}
+.progress span{background:#552327}.progress span.done{background:#ffc343}.progress span.active{background:#ff4d40}
+.panel,.hint,.rules{background:rgba(29,9,14,.86);border-color:rgba(255,168,79,.33)}
+.code{background:rgba(19,6,10,.88);border-color:#8e4535;color:#ffe0ad}
+.hint .num,.stage-prompt{color:#ffd26d}
+.hint:not(.locked){background:rgba(69,27,20,.88);border-color:#db8c3b}
+.color-button{background:rgba(53,17,21,.92);border-color:#a35745;color:#fff1e6}
+.color-button.chosen{background:#ffe08a;color:#321309;border-color:#ffe08a}
+.secondary,.ghost{background:#49252a;border-color:#925343;color:#fff0dd}
+.primary{background:#ffcc57;color:#281208}
+.danger{background:#d52e2e;border-color:#ff7770}
+.story,.intro-story,.lead,.rules-list{color:#ffe0d0}
+.critical-screen.failure::before{background:radial-gradient(ellipse,rgba(255,35,22,.58),transparent 70%)}
+.critical-screen.success::before{background:radial-gradient(ellipse,rgba(38,220,130,.34),transparent 70%)}
+@media(prefers-reduced-motion:reduce){body::before,body::after{animation:none!important}}
+</style></head><body><div class="shell"><header class="top"><div class="brand">CÓDIGO FANTASMA</div><div class="status" id="status">PROTOCOLO INATIVO</div></header><div class="progress" id="progress" aria-label="Progresso da missão"></div><main id="screen" aria-live="polite"></main><footer class="bottom"><div class="footnote" id="counter"></div><div class="actions"><button class="ghost" id="back">Voltar</button><button class="primary" id="next">Iniciar missão</button></div></footer></div><script>
+// Configure as respostas antes da dinâmica. O HTML valida a cor selecionada, sem conexão com o Arduino.
+// A verificação ocorre após o clique em "Fio removido".
+// Ordem física do Arduino deve coincidir com RESPOSTAS_CORRETAS.
+// Arduino: const byte SEQUENCIA[QUANTIDADE_FIOS] = {4, 2, 3, 0, 1};
+const steps=[
+{title:'A memória de emergência',story:'O núcleo perdeu acesso ao painel principal. Um registro de inicialização sobreviveu na memória do controlador. Ele aponta para o primeiro circuito que deve ser desligado.',challenge:'Qual palavra será exibida no Monitor Serial?',code:'String canais[] = {"AZUL", "VERDE", "VERMELHO", "PRETO", "AMARELO"};\nint posicao = 7 - 4;\nSerial.println(canais[posicao]);',hints:['Calcule a subtração antes de consultar o vetor.','O primeiro elemento de um vetor ocupa o índice 0.','Conte até o índice 3, começando pelo zero.']},
+{title:'O sinal de advertência',story:'O primeiro circuito foi isolado. As luzes de emergência começaram a piscar. No terminal, uma rotina de repetição identifica a próxima linha de alimentação.',challenge:'Qual palavra será impressa três vezes?',code:'String canais[] = {"AZUL", "AMARELO", "VERDE", "VERMELHO"};\nfor (int ii = 0; ii < 3; ii++) {\n  Serial.println(canais[1]);\n}',hints:['Observe qual posição do vetor é acessada dentro do laço.','O laço repete a impressão, mas não altera o índice escolhido.','O canal procurado tem a cor típica de um aviso de atenção.']},
+{title:'A porta de segurança',story:'A segunda linha foi interrompida. A porta do setor de controle destravou, mas uma condição de segurança ainda decide qual circuito libera a passagem.',challenge:'Com sensor = 1, qual mensagem aparece no Monitor Serial?',code:'int sensor = 1;\nif (sensor == 1) {\n  Serial.println("VERDE");\n} else {\n  Serial.println("VERMELHO");\n}',hints:['O operador == compara dois valores.','Quando a condição é verdadeira, executa-se o bloco do if.','Pense na cor que costuma indicar passagem liberada.']},
+{title:'O núcleo superaquecido',story:'A porta se abriu. Dentro do núcleo, o sensor de temperatura detecta aquecimento acima do limite seguro. O protocolo exige desligar a linha associada ao alerta máximo.',challenge:'O painel usa estas regras: abaixo de 10 °C, nenhum LED; de 10 a 19,9 °C, azul; de 20 a 29,9 °C, azul e amarelo; a partir de 30 °C, os três LEDs. Qual é o terceiro LED, indicado no registro abaixo?',code:'String alertas[] = {"AZUL", "AMARELO", "VERMELHO"};\nint temperatura = 34;\nif (temperatura >= 30) {\n  Serial.println(alertas[2]);\n}',hints:['O valor medido ultrapassou 30 °C.','O alerta crítico costuma usar uma cor associada a perigo e parada.','No vetor alertas, o índice 2 aponta para o terceiro elemento.']},
+{title:'O último sinal',story:'O alerta térmico foi contido. Resta uma única linha ativa. O sensor PIR detecta movimento na sala vazia e executa a última rotina de identificação.',challenge:'Se o sensor detectou presença, qual canal será enviado ao Monitor Serial?',code:'void mostrarCanal(String cor) {\n  Serial.println(cor);\n}\n\nint presenca = 1;\nif (presenca == 1) {\n  mostrarCanal("AZUL");\n}',hints:['Uma função pode receber um texto como parâmetro.','A condição é verdadeira, então mostrarCanal é chamada.','A última linha tem a cor normalmente associada à água e ao céu.']}
+];
+// CONFIGURACAO DO INSTRUTOR: mesma ordem programada no Arduino.
+const RESPOSTAS_CORRETAS=['PRETO','AMARELO','VERDE','VERMELHO','AZUL'];
+const COLORS=['PRETO','AMARELO','VERDE','VERMELHO','AZUL'];
+const MAX_DICAS=3;
+const INTERVALO_DICA_MS=60_000; // uma nova dica disponivel a cada minuto
+const DURACAO_MISSAO_MS=5*60_000; // acompanha o tempo do Arduino
+let page=-1, phase='challenge', selected='', resultCorrect=false;
+let completed=[], hintsUsed=0, openedHints=[[],[],[],[],[]];
+let startedAt=null, stageStartedAt=null, failedByTime=false, colorOrder=[];
+const screen=document.getElementById('screen'),status=document.getElementById('status'),counter=document.getElementById('counter'),next=document.getElementById('next'),back=document.getElementById('back'),progress=document.getElementById('progress');
+const el=(tag,cls='',content)=>{const x=document.createElement(tag);x.className=cls;if(content!==undefined)x.textContent=content;return x};
+function button(label,cls,fn){const b=el('button',cls,label);b.type='button';b.addEventListener('click',fn);return b}
+function elapsed(){return startedAt===null?0:Math.max(0,Date.now()-startedAt)}
+function formatClock(ms){let seconds=Math.max(0,Math.ceil(ms/1000));return `${String(Math.floor(seconds/60)).padStart(2,'0')}:${String(seconds%60).padStart(2,'0')}`}
+function stageElapsed(){return stageStartedAt===null?0:Math.max(0,Date.now()-stageStartedAt)}
+function availableHints(){return Math.min(MAX_DICAS,Math.floor(stageElapsed()/INTERVALO_DICA_MS))}
+function hintWait(){return INTERVALO_DICA_MS-(stageElapsed()%INTERVALO_DICA_MS)}
+function isHintAvailable(){return stageStartedAt!==null&&hintsUsed<MAX_DICAS&&openedHints[page].length<availableHints()}
+function renderHeader(){
+ progress.replaceChildren();for(let ii=0;ii<5;ii++)progress.append(el('span',ii<page?'done':ii===page?'active':''));
+ const left=page<0?'PROTOCOLO INATIVO':page===5?'NÚCLEO ESTABILIZADO':page===6?'OPERAÇÃO ENCERRADA':`CIRCUITO ${page+1} / 05`;
+ status.textContent=left;
+ const clock=startedAt===null?'05:00':formatClock(DURACAO_MISSAO_MS-elapsed());
+ counter.textContent=page===-1?'AGUARDANDO INÍCIO':`TEMPO ${clock}   •   DICAS ${hintsUsed}/${MAX_DICAS}`;
+ back.style.display=page===0&&phase==='challenge'?'':'none';back.disabled=page!==0||phase!=='challenge';
+ next.style.display='';next.disabled=false;
+}
+function shuffleColors(){const a=COLORS.filter(c=>!completed.includes(c));for(let ii=a.length-1;ii>0;ii--){const jj=Math.floor(Math.random()*(ii+1));[a[ii],a[jj]]=[a[jj],a[ii]]}return a}
+function enterStage(){stageStartedAt=Date.now();colorOrder=shuffleColors()}
+function restart(){page=-1;phase='challenge';selected='';completed=[];hintsUsed=0;openedHints=[[],[],[],[],[]];startedAt=null;stageStartedAt=null;failedByTime=false;colorOrder=[];render()}
+function advance(){if(page===4)page=5;else {page++;enterStage()}phase='challenge';selected='';render()}
+function verifyRemoval(){resultCorrect=selected===RESPOSTAS_CORRETAS[page];if(resultCorrect)completed.push(selected);phase='result';render()}
+function openHint(ii){
+ if(!isHintAvailable()||openedHints[page].includes(ii))return;
+ // Revelacao sequencial das dicas da etapa
+ const nextHint=[0,1,2].find(n=>!openedHints[page].includes(n));
+ if(ii!==nextHint)return;
+ openedHints[page].push(ii);hintsUsed++;render();
+}
+function render(){
+ screen.replaceChildren();renderHeader();
+ if(page===-1){
+ next.textContent='Iniciar operação';const sec=el('section','slide intro');
+ sec.append(el('h1','','Operação Código Fantasma'));
+ const story=el('div','intro-story');story.append(el('p','','Um centro de pesquisa desenvolveu um núcleo automatizado capaz de controlar os sistemas de segurança do laboratório. Durante um teste, uma falha apagou o protocolo de desligamento e ativou uma contagem regressiva de cinco minutos.'));
+ story.append(el('p','','Restaram cinco circuitos ligados a um dispositivo físico. O sistema recuperou fragmentos dos registros de programação, mas apenas uma ordem de desligamento evita o colapso. Cada circuito isolado desbloqueia a próxima parte da transmissão.'));
+ sec.append(story);
+ const rules=el('section','rules');rules.append(el('h2','','Instruções'));
+ const items=[
+ 'Inicie o cronômetro do Arduino e clique em “Iniciar operação” ao mesmo tempo.',
+ 'Leia a transmissão e resolva o desafio de cada etapa.',
+ 'Selecione uma cor e confirme a escolha antes de retirar o fio.',
+ 'Retire fisicamente o fio escolhido e clique em “Fio removido — verificar”.',
+ 'Uma escolha incorreta ou o fim dos cinco minutos encerra a missão.',
+ 'Uma dica fica disponível após 1 minuto em cada etapa. O tempo de espera reinicia ao avançar.',
+ 'No máximo 3 dicas podem ser abertas durante toda a missão. As cores já usadas desaparecem das próximas etapas.'
+ ];const list=el('ol','rules-list');for(const item of items)list.append(el('li','',item));rules.append(list);sec.append(rules);screen.append(sec);return} 
+ if(page===5||page===6){next.style.display='none';const ok=page===5;const sec=el('section','slide critical-screen '+(ok?'success':'failure'));sec.append(el('span','material-symbols-outlined critical-icon',ok?'verified':'warning'));sec.append(el('h1','',ok?'NÚCLEO ESTABILIZADO':'FALHA CRÍTICA'));sec.append(el('p','lead',ok?'O último circuito foi isolado. A contagem regressiva foi interrompida.':failedByTime?'O tempo se esgotou. O núcleo entrou em colapso.':'A sequência foi violada. O núcleo entrou em colapso.'));sec.append(button('Reiniciar operação',ok?'primary critical-action':'danger critical-action',restart));screen.append(sec);return}
+ const step=steps[page],sec=el('section','slide');
+ if(phase==='remove'){
+  next.style.display='none';sec.append(el('h2','','Remoção do circuito'),el('p','lead',`Cor escolhida: ${selected}. Remova o fio correspondente no dispositivo.`));const panel=el('div','panel');panel.append(el('p','','Depois de retirar o fio, confirme a remoção para executar a verificação.'));panel.append(button('Fio removido — verificar','primary',verifyRemoval));sec.append(panel);screen.append(sec);return;
+ }
+ if(phase==='result'){
+  next.style.display='none';const sec=el('section','slide critical-screen '+(resultCorrect?'success':'failure'));sec.append(el('span','material-symbols-outlined critical-icon',resultCorrect?'check_circle':'dangerous'));sec.append(el('h2','',resultCorrect?'CIRCUITO ISOLADO':'FALHA CRÍTICA'));sec.append(el('p','lead',resultCorrect?'Sinal estabilizado. O acesso ao próximo circuito foi liberado.':'Sequência incorreta. O núcleo entrou em colapso. Operação encerrada.'));sec.append(button(resultCorrect?(page===4?'Concluir operação':'Prosseguir'):'Reiniciar operação',resultCorrect?'primary critical-action':'danger critical-action',resultCorrect?advance:restart));screen.append(sec);return;
+ }
+ next.textContent='Confirmar cor';next.disabled=!selected;
+ sec.append(el('h2','',step.title),el('p','story',step.story));const panel=el('div','panel');panel.append(el('p','',step.challenge));if(step.code)panel.append(el('pre','code',step.code));sec.append(panel);
+ const hints=el('div','hints');for(let ii=0;ii<3;ii++){
+  const open=openedHints[page].includes(ii),card=el('div','hint'+(open?'':' locked'));
+  card.append(el('span','num',`DICA ${ii+1}`));
+  if(open){card.append(el('p','',step.hints[ii]))}
+  else{
+   const isNext=ii===openedHints[page].length;
+   let label='Bloqueada';
+   if(hintsUsed>=MAX_DICAS)label='Limite de dicas atingido';
+   else if(isNext&&isHintAvailable())label='Abrir dica';
+   else if(isNext)label=`Disponível em ${formatClock(hintWait())}`;
+   card.append(el('p','',label));
+   const b=button('Revelar','secondary',()=>openHint(ii));b.disabled=!isNext||!isHintAvailable();card.append(b);
+  }hints.append(card);
+ }sec.append(hints);
+ const choice=el('div','choice');choice.append(el('p','','Qual fio deve ser removido?'));const opts=el('div','color-options');for(const color of colorOrder){const b=button(color,'color-button'+(selected===color?' chosen':''),()=>{selected=color;render()});const dot=el('span','dot');dot.style.background=({PRETO:'#171717',AMARELO:'#eab308',VERDE:'#22c55e',VERMELHO:'#ef4444',AZUL:'#3b82f6'})[color];b.prepend(dot);opts.append(b)}choice.append(opts);sec.append(choice);screen.append(sec);
+}
+next.addEventListener('click',()=>{
+ if(page===-1){startedAt=Date.now();page=0;phase='challenge';enterStage()}
+ else if(phase==='challenge'&&selected)phase='remove';
+ render();
+});
+back.addEventListener('click',()=>{if(page===0&&phase==='challenge'){restart()}});
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'&&document.activeElement===document.body&&!next.disabled&&next.style.display!=='none')next.click()});
+setInterval(()=>{
+ if(startedAt===null||page===5||page===6||(phase==='result'&&!resultCorrect))return;
+ if(elapsed()>=DURACAO_MISSAO_MS){failedByTime=true;page=6;render();return}
+ const old=counter.textContent;
+ counter.textContent=`TEMPO ${formatClock(DURACAO_MISSAO_MS-elapsed())}   •   DICAS ${hintsUsed}/${MAX_DICAS}`;
+ if(phase==='challenge'){
+   const current=screen.querySelectorAll('.hint.locked');
+   // Atualiza contagens regressivas sem remontar os controles de escolha.
+   current.forEach(card=>{const p=card.querySelector('p');if(!p)return;
+    if(p.textContent.startsWith('Disponível em'))p.textContent=`Disponível em ${formatClock(hintWait())}`;
+   });
+   if(isHintAvailable()&&current.length){const first=Array.from(current).find(c=>c.querySelector('p')?.textContent.startsWith('Disponível em'));if(first)render()}
+ }
+},500);
+render();
+</script></body></html>
